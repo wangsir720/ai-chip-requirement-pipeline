@@ -1,0 +1,2046 @@
+{
+  "pipeline": {
+    "raw_count": 15,
+    "cleaned_count": 15,
+    "unique_count": 11,
+    "duplicate_removed": 4,
+    "duplicate_rate": 0.2667,
+    "avg_completeness": 0.7818,
+    "merge_log": [
+      {
+        "kept": "RAW-001",
+        "merged": "RAW-002",
+        "dedup_key": "TX8|Qwen2.5-14B|oom",
+        "text_similarity": 0.107,
+        "level": "结构化同需求",
+        "reason": "去重键一致（芯片+模型+问题类型）：TX8|Qwen2.5-14B|oom"
+      },
+      {
+        "kept": "RAW-001",
+        "merged": "RAW-006",
+        "dedup_key": "TX8|Qwen2.5-14B|oom",
+        "text_similarity": 0.149,
+        "level": "结构化同需求",
+        "reason": "去重键一致（芯片+模型+问题类型）：TX8|Qwen2.5-14B|oom"
+      },
+      {
+        "kept": "RAW-003",
+        "merged": "RAW-009",
+        "dedup_key": "REX1032|YOLOv8n-detect|operator_fallback",
+        "text_similarity": 0.262,
+        "level": "结构化同需求",
+        "reason": "去重键一致（芯片+模型+问题类型）：REX1032|YOLOv8n-detect|operator_fallback"
+      },
+      {
+        "kept": "RAW-008",
+        "merged": "RAW-013",
+        "dedup_key": "TX81|未提取到|doc_gap",
+        "text_similarity": 0.2,
+        "level": "结构化同需求",
+        "reason": "去重键一致（芯片+模型+问题类型）：TX81|未提取到|doc_gap"
+      }
+    ],
+    "noise_tokens_removed": [
+      "...",
+      "不太懂",
+      "他们那边",
+      "吧",
+      "那边",
+      "麻烦看看"
+    ],
+    "pronouns_marked": [
+      "这个卡"
+    ],
+    "assumption_refs": [
+      "A-01",
+      "A-02",
+      "A-03",
+      "A-04"
+    ]
+  },
+  "unique_requirements": [
+    {
+      "id": "RAW-001",
+      "source": "email",
+      "received_at": "2026-08-04",
+      "reporter": "华东区 FAE",
+      "customer_industry": "政务",
+      "raw_text": "客户反馈我们在 TX8 上跑 Qwen2.5-14B 推理的时候显存直接爆了，麻烦看看是什么问题，他们那边说换了batch size 就好了但是他们的 batch size 现在开到 64 就 OOM，之前 32 是能跑的，是不是新版本有问题？他们还问这个卡能不能支持到 70B 的模型。另外客户抱怨说安装步骤太复杂了，文档看不明白。",
+      "clean_text": "客户反馈我们在 TX8 上跑 Qwen2.5-14B 推理的时候显存直接爆了,是什么问题,说换了batch size 就好了但是他们的 batch size 现在开到 64 就 OOM,之前 32 是能跑的,是不是新版本有问题?他们还问[指代]这个卡能不能支持到 70B 的模型.另外客户抱怨说安装步骤太复杂了,文档看不明白.",
+      "actions": [
+        {
+          "action": "normalize",
+          "detail": "全角转半角 + 空白归一"
+        },
+        {
+          "action": "strip_noise",
+          "detail": "删除噪声词：麻烦看看、他们那边"
+        },
+        {
+          "action": "mark_pronouns",
+          "detail": "标记指代：这个卡"
+        }
+      ],
+      "removed_noise": [
+        "麻烦看看",
+        "他们那边"
+      ],
+      "pronouns": [
+        "这个卡"
+      ],
+      "chip_model": "TX8",
+      "model_name": "Qwen2.5-14B",
+      "issue_type": "oom,doc_gap,capability_question",
+      "issue_labels": [
+        "oom",
+        "doc_gap",
+        "capability_question"
+      ],
+      "framework": "未提取到",
+      "severity": "P1",
+      "completeness": 0.8,
+      "merged_from": [
+        {
+          "id": "RAW-002",
+          "source": "jira",
+          "received_at": "2026-08-05",
+          "text_similarity": 0.107
+        },
+        {
+          "id": "RAW-006",
+          "source": "jira",
+          "received_at": "2026-08-07",
+          "text_similarity": 0.149
+        }
+      ],
+      "fields": {
+        "chip_model": {
+          "value": "TX8",
+          "evidence": {
+            "matched": "TX8",
+            "start": 8,
+            "end": 11,
+            "quote": "TX8"
+          }
+        },
+        "model_name": {
+          "value": "Qwen2.5-14B",
+          "evidence": {
+            "matched": "Qwen2.5-14B",
+            "start": 15,
+            "end": 26,
+            "quote": "Qwen2.5-14B"
+          }
+        },
+        "framework": {
+          "value": "未提取到",
+          "evidence": null
+        },
+        "issue_type": {
+          "value": "oom,doc_gap,capability_question",
+          "multi_label": [
+            "oom",
+            "doc_gap",
+            "capability_question"
+          ],
+          "evidence": [
+            {
+              "label": "oom",
+              "quote": "OOM",
+              "start": 89,
+              "end": 92
+            },
+            {
+              "label": "doc_gap",
+              "quote": "安装",
+              "start": 147,
+              "end": 149
+            },
+            {
+              "label": "capability_question",
+              "quote": "能不能支持",
+              "start": 125,
+              "end": 130
+            }
+          ]
+        },
+        "severity": {
+          "value": "P1",
+          "evidence": {
+            "matched": "P1、P3",
+            "quote": "问题类型 oom,doc_gap,capability_question → 严重度 P1",
+            "start": 0,
+            "end": 0
+          },
+          "basis": "客户业务已受阻（跑不起来 / 性能不达预期），需研发优先介入"
+        },
+        "customer_industry": {
+          "value": "政务",
+          "evidence": {
+            "matched": "样本自带上下文（非从原文抽取）",
+            "quote": "政务",
+            "start": 0,
+            "end": 0
+          }
+        },
+        "source_channel": {
+          "value": "email",
+          "evidence": {
+            "matched": "样本自带",
+            "quote": "email",
+            "start": 0,
+            "end": 0
+          }
+        },
+        "_quality": {
+          "required_total": 5,
+          "required_filled": 4,
+          "missing_fields": [
+            "framework"
+          ],
+          "completeness": 0.8,
+          "assumption_refs": [
+            "A-03",
+            "A-04"
+          ]
+        }
+      }
+    },
+    {
+      "id": "RAW-003",
+      "source": "meeting_note",
+      "received_at": "2026-08-05",
+      "reporter": "产品部",
+      "customer_industry": "政务",
+      "raw_text": "会议纪要 8/5：某省政务云反馈 REX1032 上跑他们的视频分析模型 YOLOv8n-detect，frameworks 换成 pytorch 2.1 之后算子 fallback 到 CPU",
+      "clean_text": "会议纪要 8/5:某省政务云反馈 REX1032 上跑他们的视频分析模型 YOLOv8n-detect,frameworks 换成 pytorch 2.1 之后算子 fallback 到 CPU",
+      "actions": [
+        {
+          "action": "normalize",
+          "detail": "全角转半角 + 空白归一"
+        },
+        {
+          "action": "strip_noise",
+          "detail": "无噪声词"
+        },
+        {
+          "action": "mark_pronouns",
+          "detail": "无指代"
+        }
+      ],
+      "removed_noise": [],
+      "pronouns": [],
+      "chip_model": "REX1032",
+      "model_name": "YOLOv8n-detect",
+      "issue_type": "operator_fallback",
+      "issue_labels": [
+        "operator_fallback"
+      ],
+      "framework": "PyTorch 2.1",
+      "severity": "P1",
+      "completeness": 1.0,
+      "merged_from": [
+        {
+          "id": "RAW-009",
+          "source": "email",
+          "received_at": "2026-08-09",
+          "text_similarity": 0.262
+        }
+      ],
+      "fields": {
+        "chip_model": {
+          "value": "REX1032",
+          "evidence": {
+            "matched": "REX1032",
+            "start": 17,
+            "end": 24,
+            "quote": "REX1032"
+          }
+        },
+        "model_name": {
+          "value": "YOLOv8n-detect",
+          "evidence": {
+            "matched": "YOLOv8n-detect",
+            "start": 37,
+            "end": 51,
+            "quote": "YOLOv8n-detect"
+          }
+        },
+        "framework": {
+          "value": "PyTorch 2.1",
+          "evidence": {
+            "matched": "PyTorch 2.1",
+            "start": 66,
+            "end": 77,
+            "quote": "pytorch 2.1"
+          }
+        },
+        "issue_type": {
+          "value": "operator_fallback",
+          "multi_label": [
+            "operator_fallback"
+          ],
+          "evidence": [
+            {
+              "label": "operator_fallback",
+              "quote": "fallback",
+              "start": 83,
+              "end": 91
+            }
+          ]
+        },
+        "severity": {
+          "value": "P1",
+          "evidence": {
+            "matched": "P1",
+            "quote": "问题类型 operator_fallback → 严重度 P1",
+            "start": 0,
+            "end": 0
+          },
+          "basis": "客户业务已受阻（跑不起来 / 性能不达预期），需研发优先介入"
+        },
+        "customer_industry": {
+          "value": "政务",
+          "evidence": {
+            "matched": "样本自带上下文（非从原文抽取）",
+            "quote": "政务",
+            "start": 0,
+            "end": 0
+          }
+        },
+        "source_channel": {
+          "value": "meeting_note",
+          "evidence": {
+            "matched": "样本自带",
+            "quote": "meeting_note",
+            "start": 0,
+            "end": 0
+          }
+        },
+        "_quality": {
+          "required_total": 5,
+          "required_filled": 5,
+          "missing_fields": [],
+          "completeness": 1.0,
+          "assumption_refs": [
+            "A-03",
+            "A-04"
+          ]
+        }
+      }
+    },
+    {
+      "id": "RAW-004",
+      "source": "ticket",
+      "received_at": "2026-08-06",
+      "reporter": "销售支持",
+      "customer_industry": "能源",
+      "raw_text": "客户问 REX81 超节点什么时候能交付，他们项目排期是 Q4。另外问超节点能不能横向扩展到 64 卡跑 Qwen2.5-32B。我们现在只有 TX81 模组的数据。",
+      "clean_text": "客户问 REX81 超节点什么时候能交付,他们项目排期是 Q4.另外问超节点能不能横向扩展到 64 卡跑 Qwen2.5-32B.我们现在只有 TX81 模组的数据.",
+      "actions": [
+        {
+          "action": "normalize",
+          "detail": "全角转半角 + 空白归一"
+        },
+        {
+          "action": "strip_noise",
+          "detail": "无噪声词"
+        },
+        {
+          "action": "mark_pronouns",
+          "detail": "无指代"
+        }
+      ],
+      "removed_noise": [],
+      "pronouns": [],
+      "chip_model": "REX81",
+      "model_name": "Qwen2.5-32B",
+      "issue_type": "multi_card_question,delivery_timeline",
+      "issue_labels": [
+        "multi_card_question",
+        "delivery_timeline"
+      ],
+      "framework": "未提取到",
+      "severity": "P2",
+      "completeness": 0.8,
+      "merged_from": [],
+      "fields": {
+        "chip_model": {
+          "value": "REX81",
+          "evidence": {
+            "matched": "REX81",
+            "start": 4,
+            "end": 9,
+            "quote": "REX81"
+          }
+        },
+        "model_name": {
+          "value": "Qwen2.5-32B",
+          "evidence": {
+            "matched": "Qwen2.5-32B",
+            "start": 53,
+            "end": 64,
+            "quote": "Qwen2.5-32B"
+          }
+        },
+        "framework": {
+          "value": "未提取到",
+          "evidence": null
+        },
+        "issue_type": {
+          "value": "multi_card_question,delivery_timeline",
+          "multi_label": [
+            "multi_card_question",
+            "delivery_timeline"
+          ],
+          "evidence": [
+            {
+              "label": "multi_card_question",
+              "quote": "横向扩展",
+              "start": 41,
+              "end": 45
+            },
+            {
+              "label": "delivery_timeline",
+              "quote": "什么时候能",
+              "start": 13,
+              "end": 18
+            }
+          ]
+        },
+        "severity": {
+          "value": "P2",
+          "evidence": {
+            "matched": "P2",
+            "quote": "问题类型 multi_card_question,delivery_timeline → 严重度 P2",
+            "start": 0,
+            "end": 0
+          },
+          "basis": "影响方案设计与交付承诺，需产品线给出明确口径"
+        },
+        "customer_industry": {
+          "value": "能源",
+          "evidence": {
+            "matched": "样本自带上下文（非从原文抽取）",
+            "quote": "能源",
+            "start": 0,
+            "end": 0
+          }
+        },
+        "source_channel": {
+          "value": "ticket",
+          "evidence": {
+            "matched": "样本自带",
+            "quote": "ticket",
+            "start": 0,
+            "end": 0
+          }
+        },
+        "_quality": {
+          "required_total": 5,
+          "required_filled": 4,
+          "missing_fields": [
+            "framework"
+          ],
+          "completeness": 0.8,
+          "assumption_refs": [
+            "A-03",
+            "A-04"
+          ]
+        }
+      }
+    },
+    {
+      "id": "RAW-005",
+      "source": "email",
+      "received_at": "2026-08-06",
+      "reporter": "销售",
+      "customer_industry": "互联网",
+      "raw_text": "又有一个客户说 TX8 跑 DeepSeek-V3 推理显存不够。。。客户是做大模型应用的，他们想跑 671B 那个版本。客户不太懂，问我们能不能通过加卡解决，加到几张卡能跑。另外他们还问支不支持 LoRA 微调。",
+      "clean_text": "又有一个客户说 TX8 跑 DeepSeek-V3 推理显存不够客户是做大模型应用的,他们想跑 671B 那个版本.客户,问我们能不能通过加卡解决,加到几张卡能跑.另外他们还问支不支持 LoRA 微调.",
+      "actions": [
+        {
+          "action": "normalize",
+          "detail": "全角转半角 + 空白归一"
+        },
+        {
+          "action": "strip_noise",
+          "detail": "删除噪声词：...、不太懂"
+        },
+        {
+          "action": "mark_pronouns",
+          "detail": "无指代"
+        }
+      ],
+      "removed_noise": [
+        "...",
+        "不太懂"
+      ],
+      "pronouns": [],
+      "chip_model": "TX8",
+      "model_name": "DeepSeek-V3",
+      "issue_type": "oom,finetune_question,multi_card_question,capability_question",
+      "issue_labels": [
+        "oom",
+        "finetune_question",
+        "multi_card_question",
+        "capability_question"
+      ],
+      "framework": "未提取到",
+      "severity": "P1",
+      "completeness": 0.8,
+      "merged_from": [],
+      "fields": {
+        "chip_model": {
+          "value": "TX8",
+          "evidence": {
+            "matched": "TX8",
+            "start": 8,
+            "end": 11,
+            "quote": "TX8"
+          }
+        },
+        "model_name": {
+          "value": "DeepSeek-V3",
+          "evidence": {
+            "matched": "DeepSeek-V3",
+            "start": 14,
+            "end": 25,
+            "quote": "DeepSeek-V3"
+          }
+        },
+        "framework": {
+          "value": "未提取到",
+          "evidence": null
+        },
+        "issue_type": {
+          "value": "oom,finetune_question,multi_card_question,capability_question",
+          "multi_label": [
+            "oom",
+            "finetune_question",
+            "multi_card_question",
+            "capability_question"
+          ],
+          "evidence": [
+            {
+              "label": "oom",
+              "quote": "显存不够",
+              "start": 28,
+              "end": 32
+            },
+            {
+              "label": "finetune_question",
+              "quote": "LoRA",
+              "start": 93,
+              "end": 97
+            },
+            {
+              "label": "multi_card_question",
+              "quote": "加卡",
+              "start": 69,
+              "end": 71
+            },
+            {
+              "label": "capability_question",
+              "quote": "支不支持",
+              "start": 88,
+              "end": 92
+            }
+          ]
+        },
+        "severity": {
+          "value": "P1",
+          "evidence": {
+            "matched": "P1、P2、P3",
+            "quote": "问题类型 oom,finetune_question,multi_card_question,capability_question → 严重度 P1",
+            "start": 0,
+            "end": 0
+          },
+          "basis": "客户业务已受阻（跑不起来 / 性能不达预期），需研发优先介入"
+        },
+        "customer_industry": {
+          "value": "互联网",
+          "evidence": {
+            "matched": "样本自带上下文（非从原文抽取）",
+            "quote": "互联网",
+            "start": 0,
+            "end": 0
+          }
+        },
+        "source_channel": {
+          "value": "email",
+          "evidence": {
+            "matched": "样本自带",
+            "quote": "email",
+            "start": 0,
+            "end": 0
+          }
+        },
+        "_quality": {
+          "required_total": 5,
+          "required_filled": 4,
+          "missing_fields": [
+            "framework"
+          ],
+          "completeness": 0.8,
+          "assumption_refs": [
+            "A-03",
+            "A-04"
+          ]
+        }
+      }
+    },
+    {
+      "id": "RAW-007",
+      "source": "meeting_note",
+      "received_at": "2026-08-07",
+      "reporter": "研发协作",
+      "customer_industry": "政务",
+      "raw_text": "周会：政务云那边 REX1032 pytorch 升到 2.1 以后算子 fallback，吞吐掉 90%，1.13 正常。给个算子支持清单。",
+      "clean_text": "周会:政务云 REX1032 pytorch 升到 2.1 以后算子 fallback,吞吐掉 90%,1.13 正常.给个算子支持清单.",
+      "actions": [
+        {
+          "action": "normalize",
+          "detail": "全角转半角 + 空白归一"
+        },
+        {
+          "action": "strip_noise",
+          "detail": "删除噪声词：那边"
+        },
+        {
+          "action": "mark_pronouns",
+          "detail": "无指代"
+        }
+      ],
+      "removed_noise": [
+        "那边"
+      ],
+      "pronouns": [],
+      "chip_model": "REX1032",
+      "model_name": "未提取到",
+      "issue_type": "operator_fallback",
+      "issue_labels": [
+        "operator_fallback"
+      ],
+      "framework": "PyTorch",
+      "severity": "P1",
+      "completeness": 0.8,
+      "merged_from": [],
+      "fields": {
+        "chip_model": {
+          "value": "REX1032",
+          "evidence": {
+            "matched": "REX1032",
+            "start": 7,
+            "end": 14,
+            "quote": "REX1032"
+          }
+        },
+        "model_name": {
+          "value": "未提取到",
+          "evidence": null
+        },
+        "framework": {
+          "value": "PyTorch",
+          "evidence": {
+            "matched": "PyTorch",
+            "start": 15,
+            "end": 22,
+            "quote": "pytorch"
+          }
+        },
+        "issue_type": {
+          "value": "operator_fallback",
+          "multi_label": [
+            "operator_fallback"
+          ],
+          "evidence": [
+            {
+              "label": "operator_fallback",
+              "quote": "fallback",
+              "start": 35,
+              "end": 43
+            }
+          ]
+        },
+        "severity": {
+          "value": "P1",
+          "evidence": {
+            "matched": "P1",
+            "quote": "问题类型 operator_fallback → 严重度 P1",
+            "start": 0,
+            "end": 0
+          },
+          "basis": "客户业务已受阻（跑不起来 / 性能不达预期），需研发优先介入"
+        },
+        "customer_industry": {
+          "value": "政务",
+          "evidence": {
+            "matched": "样本自带上下文（非从原文抽取）",
+            "quote": "政务",
+            "start": 0,
+            "end": 0
+          }
+        },
+        "source_channel": {
+          "value": "meeting_note",
+          "evidence": {
+            "matched": "样本自带",
+            "quote": "meeting_note",
+            "start": 0,
+            "end": 0
+          }
+        },
+        "_quality": {
+          "required_total": 5,
+          "required_filled": 4,
+          "missing_fields": [
+            "model_name"
+          ],
+          "completeness": 0.8,
+          "assumption_refs": [
+            "A-03",
+            "A-04"
+          ]
+        }
+      }
+    },
+    {
+      "id": "RAW-008",
+      "source": "ticket",
+      "received_at": "2026-08-08",
+      "reporter": "FAE",
+      "customer_industry": "医疗",
+      "raw_text": "客户抱怨安装文档看不懂，TX81 模组的驱动安装步骤和 TX5 不一样但是文档只有一份。他们希望按型号分开写。这个算文档缺失类需求吧。",
+      "clean_text": "客户抱怨安装文档看不懂,TX81 模组的驱动安装步骤和 TX5 不一样但是文档只有一份.他们希望按型号分开写.这个算文档缺失类需求.",
+      "actions": [
+        {
+          "action": "normalize",
+          "detail": "全角转半角 + 空白归一"
+        },
+        {
+          "action": "strip_noise",
+          "detail": "删除噪声词：吧"
+        },
+        {
+          "action": "mark_pronouns",
+          "detail": "无指代"
+        }
+      ],
+      "removed_noise": [
+        "吧"
+      ],
+      "pronouns": [],
+      "chip_model": "TX81",
+      "model_name": "未提取到",
+      "issue_type": "doc_gap",
+      "issue_labels": [
+        "doc_gap"
+      ],
+      "framework": "未提取到",
+      "severity": "P3",
+      "completeness": 0.6,
+      "merged_from": [
+        {
+          "id": "RAW-013",
+          "source": "jira",
+          "received_at": "2026-08-12",
+          "text_similarity": 0.2
+        }
+      ],
+      "fields": {
+        "chip_model": {
+          "value": "TX81",
+          "evidence": {
+            "matched": "TX81",
+            "start": 12,
+            "end": 16,
+            "quote": "TX81"
+          }
+        },
+        "model_name": {
+          "value": "未提取到",
+          "evidence": null
+        },
+        "framework": {
+          "value": "未提取到",
+          "evidence": null
+        },
+        "issue_type": {
+          "value": "doc_gap",
+          "multi_label": [
+            "doc_gap"
+          ],
+          "evidence": [
+            {
+              "label": "doc_gap",
+              "quote": "安装",
+              "start": 4,
+              "end": 6
+            }
+          ]
+        },
+        "severity": {
+          "value": "P3",
+          "evidence": {
+            "matched": "P3",
+            "quote": "问题类型 doc_gap → 严重度 P3",
+            "start": 0,
+            "end": 0
+          },
+          "basis": "咨询与文档类，不阻塞业务，但影响客户体验与后续复购"
+        },
+        "customer_industry": {
+          "value": "医疗",
+          "evidence": {
+            "matched": "样本自带上下文（非从原文抽取）",
+            "quote": "医疗",
+            "start": 0,
+            "end": 0
+          }
+        },
+        "source_channel": {
+          "value": "ticket",
+          "evidence": {
+            "matched": "样本自带",
+            "quote": "ticket",
+            "start": 0,
+            "end": 0
+          }
+        },
+        "_quality": {
+          "required_total": 5,
+          "required_filled": 3,
+          "missing_fields": [
+            "model_name",
+            "framework"
+          ],
+          "completeness": 0.6,
+          "assumption_refs": [
+            "A-03",
+            "A-04"
+          ]
+        }
+      }
+    },
+    {
+      "id": "RAW-010",
+      "source": "ticket",
+      "received_at": "2026-08-10",
+      "reporter": "销售支持",
+      "customer_industry": "能源",
+      "raw_text": "咨询：REX81 超节点交付时间与横向扩展能力，以及超节点互联带宽指标。需要产品线给出正式口径。",
+      "clean_text": "咨询:REX81 超节点交付时间与横向扩展能力,以及超节点互联带宽指标.需要产品线给出正式口径.",
+      "actions": [
+        {
+          "action": "normalize",
+          "detail": "全角转半角 + 空白归一"
+        },
+        {
+          "action": "strip_noise",
+          "detail": "无噪声词"
+        },
+        {
+          "action": "mark_pronouns",
+          "detail": "无指代"
+        }
+      ],
+      "removed_noise": [],
+      "pronouns": [],
+      "chip_model": "REX81",
+      "model_name": "未提取到",
+      "issue_type": "multi_card_question,delivery_timeline",
+      "issue_labels": [
+        "multi_card_question",
+        "delivery_timeline"
+      ],
+      "framework": "未提取到",
+      "severity": "P2",
+      "completeness": 0.6,
+      "merged_from": [],
+      "fields": {
+        "chip_model": {
+          "value": "REX81",
+          "evidence": {
+            "matched": "REX81",
+            "start": 3,
+            "end": 8,
+            "quote": "REX81"
+          }
+        },
+        "model_name": {
+          "value": "未提取到",
+          "evidence": null
+        },
+        "framework": {
+          "value": "未提取到",
+          "evidence": null
+        },
+        "issue_type": {
+          "value": "multi_card_question,delivery_timeline",
+          "multi_label": [
+            "multi_card_question",
+            "delivery_timeline"
+          ],
+          "evidence": [
+            {
+              "label": "multi_card_question",
+              "quote": "横向扩展",
+              "start": 17,
+              "end": 21
+            },
+            {
+              "label": "delivery_timeline",
+              "quote": "交付",
+              "start": 12,
+              "end": 14
+            }
+          ]
+        },
+        "severity": {
+          "value": "P2",
+          "evidence": {
+            "matched": "P2",
+            "quote": "问题类型 multi_card_question,delivery_timeline → 严重度 P2",
+            "start": 0,
+            "end": 0
+          },
+          "basis": "影响方案设计与交付承诺，需产品线给出明确口径"
+        },
+        "customer_industry": {
+          "value": "能源",
+          "evidence": {
+            "matched": "样本自带上下文（非从原文抽取）",
+            "quote": "能源",
+            "start": 0,
+            "end": 0
+          }
+        },
+        "source_channel": {
+          "value": "ticket",
+          "evidence": {
+            "matched": "样本自带",
+            "quote": "ticket",
+            "start": 0,
+            "end": 0
+          }
+        },
+        "_quality": {
+          "required_total": 5,
+          "required_filled": 3,
+          "missing_fields": [
+            "model_name",
+            "framework"
+          ],
+          "completeness": 0.6,
+          "assumption_refs": [
+            "A-03",
+            "A-04"
+          ]
+        }
+      }
+    },
+    {
+      "id": "RAW-011",
+      "source": "meeting_note",
+      "received_at": "2026-08-11",
+      "reporter": "产品部",
+      "customer_industry": "互联网",
+      "raw_text": "讨论：客户拿 TX8 跑 DeepSeek-V3 问要几张卡。32G 显存，需要多卡切分，加到 4 张够不够？销售不清楚切分粒度，研发说需要看模型结构和互联方案。",
+      "clean_text": "讨论:客户拿 TX8 跑 DeepSeek-V3 问要几张卡.32G 显存,需要多卡切分,加到 4 张够不够?销售不清楚切分粒度,研发说需要看模型结构和互联方案.",
+      "actions": [
+        {
+          "action": "normalize",
+          "detail": "全角转半角 + 空白归一"
+        },
+        {
+          "action": "strip_noise",
+          "detail": "无噪声词"
+        },
+        {
+          "action": "mark_pronouns",
+          "detail": "无指代"
+        }
+      ],
+      "removed_noise": [],
+      "pronouns": [],
+      "chip_model": "TX8",
+      "model_name": "DeepSeek-V3",
+      "issue_type": "multi_card_question",
+      "issue_labels": [
+        "multi_card_question"
+      ],
+      "framework": "未提取到",
+      "severity": "P2",
+      "completeness": 0.8,
+      "merged_from": [],
+      "fields": {
+        "chip_model": {
+          "value": "TX8",
+          "evidence": {
+            "matched": "TX8",
+            "start": 7,
+            "end": 10,
+            "quote": "TX8"
+          }
+        },
+        "model_name": {
+          "value": "DeepSeek-V3",
+          "evidence": {
+            "matched": "DeepSeek-V3",
+            "start": 13,
+            "end": 24,
+            "quote": "DeepSeek-V3"
+          }
+        },
+        "framework": {
+          "value": "未提取到",
+          "evidence": null
+        },
+        "issue_type": {
+          "value": "multi_card_question",
+          "multi_label": [
+            "multi_card_question"
+          ],
+          "evidence": [
+            {
+              "label": "multi_card_question",
+              "quote": "几张卡",
+              "start": 27,
+              "end": 30
+            }
+          ]
+        },
+        "severity": {
+          "value": "P2",
+          "evidence": {
+            "matched": "P2",
+            "quote": "问题类型 multi_card_question → 严重度 P2",
+            "start": 0,
+            "end": 0
+          },
+          "basis": "影响方案设计与交付承诺，需产品线给出明确口径"
+        },
+        "customer_industry": {
+          "value": "互联网",
+          "evidence": {
+            "matched": "样本自带上下文（非从原文抽取）",
+            "quote": "互联网",
+            "start": 0,
+            "end": 0
+          }
+        },
+        "source_channel": {
+          "value": "meeting_note",
+          "evidence": {
+            "matched": "样本自带",
+            "quote": "meeting_note",
+            "start": 0,
+            "end": 0
+          }
+        },
+        "_quality": {
+          "required_total": 5,
+          "required_filled": 4,
+          "missing_fields": [
+            "framework"
+          ],
+          "completeness": 0.8,
+          "assumption_refs": [
+            "A-03",
+            "A-04"
+          ]
+        }
+      }
+    },
+    {
+      "id": "RAW-012",
+      "source": "email",
+      "received_at": "2026-08-12",
+      "reporter": "销售",
+      "customer_industry": "金融",
+      "raw_text": "客户问 TX8 模组上支不支持 LoRA 微调 Qwen2.5-14B，客户想做行业语料微调。",
+      "clean_text": "客户问 TX8 模组上支不支持 LoRA 微调 Qwen2.5-14B,客户想做行业语料微调.",
+      "actions": [
+        {
+          "action": "normalize",
+          "detail": "全角转半角 + 空白归一"
+        },
+        {
+          "action": "strip_noise",
+          "detail": "无噪声词"
+        },
+        {
+          "action": "mark_pronouns",
+          "detail": "无指代"
+        }
+      ],
+      "removed_noise": [],
+      "pronouns": [],
+      "chip_model": "TX8",
+      "model_name": "Qwen2.5-14B",
+      "issue_type": "finetune_question,capability_question",
+      "issue_labels": [
+        "finetune_question",
+        "capability_question"
+      ],
+      "framework": "未提取到",
+      "severity": "P2",
+      "completeness": 0.8,
+      "merged_from": [],
+      "fields": {
+        "chip_model": {
+          "value": "TX8",
+          "evidence": {
+            "matched": "TX8",
+            "start": 4,
+            "end": 7,
+            "quote": "TX8"
+          }
+        },
+        "model_name": {
+          "value": "Qwen2.5-14B",
+          "evidence": {
+            "matched": "Qwen2.5-14B",
+            "start": 24,
+            "end": 35,
+            "quote": "Qwen2.5-14B"
+          }
+        },
+        "framework": {
+          "value": "未提取到",
+          "evidence": null
+        },
+        "issue_type": {
+          "value": "finetune_question,capability_question",
+          "multi_label": [
+            "finetune_question",
+            "capability_question"
+          ],
+          "evidence": [
+            {
+              "label": "finetune_question",
+              "quote": "LoRA",
+              "start": 16,
+              "end": 20
+            },
+            {
+              "label": "capability_question",
+              "quote": "支不支持",
+              "start": 11,
+              "end": 15
+            }
+          ]
+        },
+        "severity": {
+          "value": "P2",
+          "evidence": {
+            "matched": "P2、P3",
+            "quote": "问题类型 finetune_question,capability_question → 严重度 P2",
+            "start": 0,
+            "end": 0
+          },
+          "basis": "影响方案设计与交付承诺，需产品线给出明确口径"
+        },
+        "customer_industry": {
+          "value": "金融",
+          "evidence": {
+            "matched": "样本自带上下文（非从原文抽取）",
+            "quote": "金融",
+            "start": 0,
+            "end": 0
+          }
+        },
+        "source_channel": {
+          "value": "email",
+          "evidence": {
+            "matched": "样本自带",
+            "quote": "email",
+            "start": 0,
+            "end": 0
+          }
+        },
+        "_quality": {
+          "required_total": 5,
+          "required_filled": 4,
+          "missing_fields": [
+            "framework"
+          ],
+          "completeness": 0.8,
+          "assumption_refs": [
+            "A-03",
+            "A-04"
+          ]
+        }
+      }
+    },
+    {
+      "id": "RAW-014",
+      "source": "ticket",
+      "received_at": "2026-08-13",
+      "reporter": "售前",
+      "customer_industry": "政务",
+      "raw_text": "客户问 REX1032 千卡集群跑 Qwen2.5-32B 的互联方式和单卡间带宽，以及是否支持线性扩展。",
+      "clean_text": "客户问 REX1032 千卡集群跑 Qwen2.5-32B 的互联方式和单卡间带宽,以及是否支持线性扩展.",
+      "actions": [
+        {
+          "action": "normalize",
+          "detail": "全角转半角 + 空白归一"
+        },
+        {
+          "action": "strip_noise",
+          "detail": "无噪声词"
+        },
+        {
+          "action": "mark_pronouns",
+          "detail": "无指代"
+        }
+      ],
+      "removed_noise": [],
+      "pronouns": [],
+      "chip_model": "REX1032",
+      "model_name": "Qwen2.5-32B",
+      "issue_type": "未提取到",
+      "issue_labels": [],
+      "framework": "未提取到",
+      "severity": "P3",
+      "completeness": 0.6,
+      "merged_from": [],
+      "fields": {
+        "chip_model": {
+          "value": "REX1032",
+          "evidence": {
+            "matched": "REX1032",
+            "start": 4,
+            "end": 11,
+            "quote": "REX1032"
+          }
+        },
+        "model_name": {
+          "value": "Qwen2.5-32B",
+          "evidence": {
+            "matched": "Qwen2.5-32B",
+            "start": 18,
+            "end": 29,
+            "quote": "Qwen2.5-32B"
+          }
+        },
+        "framework": {
+          "value": "未提取到",
+          "evidence": null
+        },
+        "issue_type": {
+          "value": "未提取到",
+          "multi_label": [],
+          "evidence": null
+        },
+        "severity": {
+          "value": "P3",
+          "evidence": {
+            "matched": "无匹配类型",
+            "quote": "问题类型 无 → 严重度 P3",
+            "start": 0,
+            "end": 0
+          },
+          "basis": "咨询与文档类，不阻塞业务，但影响客户体验与后续复购"
+        },
+        "customer_industry": {
+          "value": "政务",
+          "evidence": {
+            "matched": "样本自带上下文（非从原文抽取）",
+            "quote": "政务",
+            "start": 0,
+            "end": 0
+          }
+        },
+        "source_channel": {
+          "value": "ticket",
+          "evidence": {
+            "matched": "样本自带",
+            "quote": "ticket",
+            "start": 0,
+            "end": 0
+          }
+        },
+        "_quality": {
+          "required_total": 5,
+          "required_filled": 3,
+          "missing_fields": [
+            "framework",
+            "issue_type"
+          ],
+          "completeness": 0.6,
+          "assumption_refs": [
+            "A-03",
+            "A-04"
+          ]
+        }
+      }
+    },
+    {
+      "id": "RAW-015",
+      "source": "email",
+      "received_at": "2026-08-14",
+      "reporter": "FAE",
+      "customer_industry": "能源",
+      "raw_text": "有个客户在 TX8 上用 pytorch 2.1 跑 Qwen2.5-7B 说算子不支持，问是不是版本问题。他们说自己 1.13 正常。我们需要一份算子支持矩阵。",
+      "clean_text": "有个客户在 TX8 上用 pytorch 2.1 跑 Qwen2.5-7B 说算子不支持,问是不是版本问题.他们说自己 1.13 正常.我们需要一份算子支持矩阵.",
+      "actions": [
+        {
+          "action": "normalize",
+          "detail": "全角转半角 + 空白归一"
+        },
+        {
+          "action": "strip_noise",
+          "detail": "无噪声词"
+        },
+        {
+          "action": "mark_pronouns",
+          "detail": "无指代"
+        }
+      ],
+      "removed_noise": [],
+      "pronouns": [],
+      "chip_model": "TX8",
+      "model_name": "Qwen2.5-7B",
+      "issue_type": "operator_fallback",
+      "issue_labels": [
+        "operator_fallback"
+      ],
+      "framework": "PyTorch 2.1",
+      "severity": "P1",
+      "completeness": 1.0,
+      "merged_from": [],
+      "fields": {
+        "chip_model": {
+          "value": "TX8",
+          "evidence": {
+            "matched": "TX8",
+            "start": 6,
+            "end": 9,
+            "quote": "TX8"
+          }
+        },
+        "model_name": {
+          "value": "Qwen2.5-7B",
+          "evidence": {
+            "matched": "Qwen2.5-7B",
+            "start": 27,
+            "end": 37,
+            "quote": "Qwen2.5-7B"
+          }
+        },
+        "framework": {
+          "value": "PyTorch 2.1",
+          "evidence": {
+            "matched": "PyTorch 2.1",
+            "start": 13,
+            "end": 24,
+            "quote": "pytorch 2.1"
+          }
+        },
+        "issue_type": {
+          "value": "operator_fallback",
+          "multi_label": [
+            "operator_fallback"
+          ],
+          "evidence": [
+            {
+              "label": "operator_fallback",
+              "quote": "算子不支持",
+              "start": 39,
+              "end": 44
+            }
+          ]
+        },
+        "severity": {
+          "value": "P1",
+          "evidence": {
+            "matched": "P1",
+            "quote": "问题类型 operator_fallback → 严重度 P1",
+            "start": 0,
+            "end": 0
+          },
+          "basis": "客户业务已受阻（跑不起来 / 性能不达预期），需研发优先介入"
+        },
+        "customer_industry": {
+          "value": "能源",
+          "evidence": {
+            "matched": "样本自带上下文（非从原文抽取）",
+            "quote": "能源",
+            "start": 0,
+            "end": 0
+          }
+        },
+        "source_channel": {
+          "value": "email",
+          "evidence": {
+            "matched": "样本自带",
+            "quote": "email",
+            "start": 0,
+            "end": 0
+          }
+        },
+        "_quality": {
+          "required_total": 5,
+          "required_filled": 5,
+          "missing_fields": [],
+          "completeness": 1.0,
+          "assumption_refs": [
+            "A-03",
+            "A-04"
+          ]
+        }
+      }
+    }
+  ],
+  "matrix": {
+    "entries": [
+      {
+        "chip_model": "TX8",
+        "model_name": "Qwen2.5-14B",
+        "framework": "未提取到",
+        "verdict": "needs_verification",
+        "verdict_label": "需实测验证",
+        "reason": "显存可容纳但余量仅 13.8%，低于 15% 阈值，需按客户实际上下文长度实测确认",
+        "evidence": [
+          {
+            "what": "芯片规格",
+            "detail": "TX8（云端，显存 32 GiB，来源 S1，secondary）"
+          },
+          {
+            "what": "模型规格",
+            "detail": "Qwen2.5-14B（最小显存 24 GiB，来源 P1）"
+          },
+          {
+            "what": "显存口径",
+            "detail": "需求 = 最小显存 24 GiB × 运行时余量 1.15 = 27.60 GiB（**下界**，未计入 KV Cache 与激活值）"
+          }
+        ],
+        "multi_card": {
+          "cards_needed": null,
+          "strategies": [],
+          "decision_owner": "切分方式由研发确认，本工具不代为决策"
+        },
+        "assumption_refs": [
+          "B-01",
+          "B-02",
+          "B-03"
+        ],
+        "requirement_id": "RAW-001",
+        "severity": "P1",
+        "completeness": 0.8
+      },
+      {
+        "chip_model": "REX1032",
+        "model_name": "YOLOv8n-detect",
+        "framework": "PyTorch 2.1",
+        "verdict": "needs_verification",
+        "verdict_label": "需实测验证",
+        "reason": "显存余量 85.6%（需求下界 4.6 GiB / 单卡 32.0 GiB），高于 15% 阈值；另有该框架算子 fallback 到 CPU 的记录，但来源可信度为 unverified（来自客户单方描述），**不据此判不推荐**，只要求实测验证",
+        "evidence": [
+          {
+            "what": "芯片规格",
+            "detail": "REX1032（服务器，显存 32 GiB，来源 S1，secondary）"
+          },
+          {
+            "what": "模型规格",
+            "detail": "YOLOv8n-detect（最小显存 4 GiB，来源 P2）"
+          },
+          {
+            "what": "显存口径",
+            "detail": "需求 = 最小显存 4 GiB × 运行时余量 1.15 = 4.60 GiB（**下界**，未计入 KV Cache 与激活值）"
+          },
+          {
+            "what": "框架支持",
+            "detail": "PyTorch 2.1（fallback 记录：True，来源 S2，可信度 unverified）"
+          }
+        ],
+        "multi_card": {
+          "cards_needed": null,
+          "strategies": [],
+          "decision_owner": "切分方式由研发确认，本工具不代为决策"
+        },
+        "assumption_refs": [
+          "B-01",
+          "B-02",
+          "B-03"
+        ],
+        "requirement_id": "RAW-003",
+        "severity": "P1",
+        "completeness": 1.0
+      },
+      {
+        "chip_model": "TX8",
+        "model_name": "Qwen2.5-14B",
+        "framework": "未提取到",
+        "verdict": "needs_verification",
+        "verdict_label": "需实测验证",
+        "reason": "显存可容纳但余量仅 13.8%，低于 15% 阈值，需按客户实际上下文长度实测确认",
+        "evidence": [
+          {
+            "what": "芯片规格",
+            "detail": "TX8（云端，显存 32 GiB，来源 S1，secondary）"
+          },
+          {
+            "what": "模型规格",
+            "detail": "Qwen2.5-14B（最小显存 24 GiB，来源 P1）"
+          },
+          {
+            "what": "显存口径",
+            "detail": "需求 = 最小显存 24 GiB × 运行时余量 1.15 = 27.60 GiB（**下界**，未计入 KV Cache 与激活值）"
+          }
+        ],
+        "multi_card": {
+          "cards_needed": null,
+          "strategies": [],
+          "decision_owner": "切分方式由研发确认，本工具不代为决策"
+        },
+        "assumption_refs": [
+          "B-01",
+          "B-02",
+          "B-03"
+        ],
+        "requirement_id": "RAW-012",
+        "severity": "P2",
+        "completeness": 0.8
+      },
+      {
+        "chip_model": "TX8",
+        "model_name": "Qwen2.5-7B",
+        "framework": "PyTorch 2.1",
+        "verdict": "needs_verification",
+        "verdict_label": "需实测验证",
+        "reason": "显存余量 42.5%（需求下界 18.4 GiB / 单卡 32.0 GiB），高于 15% 阈值；另有该框架算子 fallback 到 CPU 的记录，但来源可信度为 unverified（来自客户单方描述），**不据此判不推荐**，只要求实测验证",
+        "evidence": [
+          {
+            "what": "芯片规格",
+            "detail": "TX8（云端，显存 32 GiB，来源 S1，secondary）"
+          },
+          {
+            "what": "模型规格",
+            "detail": "Qwen2.5-7B（最小显存 16 GiB，来源 P1）"
+          },
+          {
+            "what": "显存口径",
+            "detail": "需求 = 最小显存 16 GiB × 运行时余量 1.15 = 18.40 GiB（**下界**，未计入 KV Cache 与激活值）"
+          },
+          {
+            "what": "框架支持",
+            "detail": "PyTorch 2.1（fallback 记录：True，来源 S2，可信度 unverified）"
+          }
+        ],
+        "multi_card": {
+          "cards_needed": null,
+          "strategies": [],
+          "decision_owner": "切分方式由研发确认，本工具不代为决策"
+        },
+        "assumption_refs": [
+          "B-01",
+          "B-02",
+          "B-03"
+        ],
+        "requirement_id": "RAW-015",
+        "severity": "P1",
+        "completeness": 1.0
+      },
+      {
+        "chip_model": "TX8",
+        "model_name": "DeepSeek-V3",
+        "framework": "未提取到",
+        "verdict": "not_recommended",
+        "verdict_label": "不推荐",
+        "reason": "模型 DeepSeek-V3 权重下界 1400.0 GiB（含 1.15 运行时余量）超过单卡显存 32.0 GiB，单卡跑不动；至少需 51 卡（张量/流水并行，切分方式须研发确认）",
+        "evidence": [
+          {
+            "what": "芯片规格",
+            "detail": "TX8（云端，显存 32 GiB，来源 S1，secondary）"
+          },
+          {
+            "what": "模型规格",
+            "detail": "DeepSeek-V3（最小显存 1400 GiB，来源 P1）"
+          },
+          {
+            "what": "多卡方案",
+            "detail": "候选切分方式：张量并行 —— 按权重矩阵切分，单层内跨卡协作；通信量最大，对互联带宽要求最高；流水并行 —— 按层切分，不同卡处理不同层；通信量小，但需足够层数才能填满卡数；专家并行 —— 仅适用于 MoE 架构，按专家切分；非 MoE 模型不适用"
+          },
+          {
+            "what": "显存口径",
+            "detail": "需求 = 最小显存 1400 GiB × 运行时余量 1.15 = 1610.00 GiB（**下界**，未计入 KV Cache 与激活值）"
+          }
+        ],
+        "multi_card": {
+          "cards_needed": 51,
+          "strategies": [
+            {
+              "name": "张量并行",
+              "note": "按权重矩阵切分，单层内跨卡协作；通信量最大，对互联带宽要求最高"
+            },
+            {
+              "name": "流水并行",
+              "note": "按层切分，不同卡处理不同层；通信量小，但需足够层数才能填满卡数"
+            },
+            {
+              "name": "专家并行",
+              "note": "仅适用于 MoE 架构，按专家切分；非 MoE 模型不适用"
+            }
+          ],
+          "decision_owner": "切分方式由研发确认，本工具不代为决策"
+        },
+        "assumption_refs": [
+          "B-01",
+          "B-02",
+          "B-03"
+        ],
+        "requirement_id": "RAW-005",
+        "severity": "P1",
+        "completeness": 0.8
+      },
+      {
+        "chip_model": "TX8",
+        "model_name": "DeepSeek-V3",
+        "framework": "未提取到",
+        "verdict": "not_recommended",
+        "verdict_label": "不推荐",
+        "reason": "模型 DeepSeek-V3 权重下界 1400.0 GiB（含 1.15 运行时余量）超过单卡显存 32.0 GiB，单卡跑不动；至少需 51 卡（张量/流水并行，切分方式须研发确认）",
+        "evidence": [
+          {
+            "what": "芯片规格",
+            "detail": "TX8（云端，显存 32 GiB，来源 S1，secondary）"
+          },
+          {
+            "what": "模型规格",
+            "detail": "DeepSeek-V3（最小显存 1400 GiB，来源 P1）"
+          },
+          {
+            "what": "多卡方案",
+            "detail": "候选切分方式：张量并行 —— 按权重矩阵切分，单层内跨卡协作；通信量最大，对互联带宽要求最高；流水并行 —— 按层切分，不同卡处理不同层；通信量小，但需足够层数才能填满卡数；专家并行 —— 仅适用于 MoE 架构，按专家切分；非 MoE 模型不适用"
+          },
+          {
+            "what": "显存口径",
+            "detail": "需求 = 最小显存 1400 GiB × 运行时余量 1.15 = 1610.00 GiB（**下界**，未计入 KV Cache 与激活值）"
+          }
+        ],
+        "multi_card": {
+          "cards_needed": 51,
+          "strategies": [
+            {
+              "name": "张量并行",
+              "note": "按权重矩阵切分，单层内跨卡协作；通信量最大，对互联带宽要求最高"
+            },
+            {
+              "name": "流水并行",
+              "note": "按层切分，不同卡处理不同层；通信量小，但需足够层数才能填满卡数"
+            },
+            {
+              "name": "专家并行",
+              "note": "仅适用于 MoE 架构，按专家切分；非 MoE 模型不适用"
+            }
+          ],
+          "decision_owner": "切分方式由研发确认，本工具不代为决策"
+        },
+        "assumption_refs": [
+          "B-01",
+          "B-02",
+          "B-03"
+        ],
+        "requirement_id": "RAW-011",
+        "severity": "P2",
+        "completeness": 0.8
+      },
+      {
+        "chip_model": "REX1032",
+        "model_name": "Qwen2.5-32B",
+        "framework": "未提取到",
+        "verdict": "not_recommended",
+        "verdict_label": "不推荐",
+        "reason": "模型 Qwen2.5-32B 权重下界 48.0 GiB（含 1.15 运行时余量）超过单卡显存 32.0 GiB，单卡跑不动；至少需 2 卡（张量/流水并行，切分方式须研发确认）",
+        "evidence": [
+          {
+            "what": "芯片规格",
+            "detail": "REX1032（服务器，显存 32 GiB，来源 S1，secondary）"
+          },
+          {
+            "what": "模型规格",
+            "detail": "Qwen2.5-32B（最小显存 48 GiB，来源 P1）"
+          },
+          {
+            "what": "多卡方案",
+            "detail": "候选切分方式：张量并行 —— 按权重矩阵切分，单层内跨卡协作；通信量最大，对互联带宽要求最高；流水并行 —— 按层切分，不同卡处理不同层；通信量小，但需足够层数才能填满卡数；专家并行 —— 仅适用于 MoE 架构，按专家切分；非 MoE 模型不适用"
+          },
+          {
+            "what": "显存口径",
+            "detail": "需求 = 最小显存 48 GiB × 运行时余量 1.15 = 55.20 GiB（**下界**，未计入 KV Cache 与激活值）"
+          }
+        ],
+        "multi_card": {
+          "cards_needed": 2,
+          "strategies": [
+            {
+              "name": "张量并行",
+              "note": "按权重矩阵切分，单层内跨卡协作；通信量最大，对互联带宽要求最高"
+            },
+            {
+              "name": "流水并行",
+              "note": "按层切分，不同卡处理不同层；通信量小，但需足够层数才能填满卡数"
+            },
+            {
+              "name": "专家并行",
+              "note": "仅适用于 MoE 架构，按专家切分；非 MoE 模型不适用"
+            }
+          ],
+          "decision_owner": "切分方式由研发确认，本工具不代为决策"
+        },
+        "assumption_refs": [
+          "B-01",
+          "B-02",
+          "B-03"
+        ],
+        "requirement_id": "RAW-014",
+        "severity": "P3",
+        "completeness": 0.6
+      },
+      {
+        "chip_model": "REX81",
+        "model_name": "Qwen2.5-32B",
+        "framework": "未提取到",
+        "verdict": "unknown",
+        "verdict_label": "待人工核实",
+        "reason": "芯片 REX81 的公开资料未查到单卡显存（可重构架构的详细规格未公开），无法做显存判定 —— 待人工核实",
+        "evidence": [
+          {
+            "what": "芯片规格",
+            "detail": "REX81（超节点，显存 未查到 GiB，来源 S1，secondary）"
+          },
+          {
+            "what": "模型规格",
+            "detail": "Qwen2.5-32B（最小显存 48 GiB，来源 P1）"
+          },
+          {
+            "what": "显存口径",
+            "detail": "需求 = 最小显存 48 GiB × 运行时余量 1.15 = 55.20 GiB（**下界**，未计入 KV Cache 与激活值）"
+          }
+        ],
+        "multi_card": {
+          "cards_needed": null,
+          "strategies": [],
+          "decision_owner": "切分方式由研发确认，本工具不代为决策"
+        },
+        "assumption_refs": [
+          "B-01",
+          "B-02",
+          "B-03"
+        ],
+        "requirement_id": "RAW-004",
+        "severity": "P2",
+        "completeness": 0.8
+      },
+      {
+        "chip_model": "REX1032",
+        "model_name": "未提取到",
+        "framework": "PyTorch",
+        "verdict": "unknown",
+        "verdict_label": "待人工核实",
+        "reason": "必填字段缺失：model_name",
+        "evidence": [],
+        "multi_card": null,
+        "assumption_refs": [
+          "B-01",
+          "B-03"
+        ],
+        "requirement_id": "RAW-007",
+        "severity": "P1",
+        "completeness": 0.8
+      },
+      {
+        "chip_model": "TX81",
+        "model_name": "未提取到",
+        "framework": "未提取到",
+        "verdict": "unknown",
+        "verdict_label": "待人工核实",
+        "reason": "必填字段缺失：model_name",
+        "evidence": [],
+        "multi_card": null,
+        "assumption_refs": [
+          "B-01",
+          "B-03"
+        ],
+        "requirement_id": "RAW-008",
+        "severity": "P3",
+        "completeness": 0.6
+      },
+      {
+        "chip_model": "REX81",
+        "model_name": "未提取到",
+        "framework": "未提取到",
+        "verdict": "unknown",
+        "verdict_label": "待人工核实",
+        "reason": "必填字段缺失：model_name",
+        "evidence": [],
+        "multi_card": null,
+        "assumption_refs": [
+          "B-01",
+          "B-03"
+        ],
+        "requirement_id": "RAW-010",
+        "severity": "P2",
+        "completeness": 0.6
+      }
+    ],
+    "total": 11,
+    "verdict_counts": {
+      "需实测验证": 4,
+      "不推荐": 3,
+      "待人工核实": 4
+    },
+    "scope_note": "全部判定基于公开资料与自拟样本，**未做真卡实测**。显存需求为下界估算（未计入 KV Cache 与激活值）。"
+  },
+  "kb": {
+    "entries": [
+      {
+        "phenomenon": "客户反馈我们在 TX8 上跑 Qwen2.5-14B 推理的时候显存直接爆了,是什么问题,说换了batch size 就好了但是他们的 batch size 现在开到 64 就 OOM,之前 32 是能跑的,是不是新版本有问题?他们还问[指代]这个卡能不能支持到 70B 的模型.另外客户抱怨说安装步骤太复杂了,文档看不明白.",
+        "cause": "batch=64 时 KV Cache 与激活值叠加超出单卡 32 GiB 显存，根因定位方式：对比 batch=32/64 的显存占用曲线",
+        "solution": "将推理批量降至 32；或启用 PagedAttention 类分页机制降低碎片；若客户确需 64 批量，按 2 卡张量并行处理",
+        "verification": "跑 output/scripts/verify_RAW-001.py，断言 batch=64 时不出现 OOM 且吞吐不低于 batch=32 的 90%",
+        "linked_requirement": "RAW-001",
+        "chip_model": "TX8",
+        "model_name": "Qwen2.5-14B",
+        "framework": "未提取到",
+        "issue_labels": [
+          "oom",
+          "doc_gap",
+          "capability_question"
+        ],
+        "rejected": "",
+        "partial": [],
+        "completeness": 1.0
+      },
+      {
+        "phenomenon": "会议纪要 8/5:某省政务云反馈 REX1032 上跑他们的视频分析模型 YOLOv8n-detect,frameworks 换成 pytorch 2.1 之后算子 fallback 到 CPU",
+        "cause": "根因未定位。已排除：显存（非 OOM）、芯片型号（其他模型正常）。待研发确认是否为目标算子在 PyTorch 2.1 后端缺失",
+        "solution": "临时回退至 PyTorch 1.13 验证业务；同时向研发提交算子支持矩阵需求，等待确认",
+        "verification": "对比 1.13 与 2.1 下同一模型的 GPU 利用率与吞吐；回退方案下利用率应恢复至 60% 以上",
+        "linked_requirement": "RAW-003",
+        "chip_model": "REX1032",
+        "model_name": "YOLOv8n-detect",
+        "framework": "PyTorch 2.1",
+        "issue_labels": [
+          "operator_fallback"
+        ],
+        "rejected": "",
+        "partial": [],
+        "completeness": 1.0
+      },
+      {
+        "phenomenon": "客户抱怨安装文档看不懂,TX81 模组的驱动安装步骤和 TX5 不一样但是文档只有一份.他们希望按型号分开写.这个算文档缺失类需求.",
+        "cause": "文档按产品线组织而非按芯片型号组织，TX81 模组与 TX5 芯片的驱动安装步骤不同但共用一份文档，导致客户按 TX5 步骤操作 TX81 失败",
+        "solution": "按芯片型号拆分安装文档；文档首页增加型号对照表",
+        "verification": "由未参与编写的同事按新文档在干净环境完成一次安装，全程无需外部协助即视为通过",
+        "linked_requirement": "RAW-008",
+        "chip_model": "TX81",
+        "model_name": "未提取到",
+        "framework": "未提取到",
+        "issue_labels": [
+          "doc_gap"
+        ],
+        "rejected": "",
+        "partial": [],
+        "completeness": 1.0
+      }
+    ],
+    "rejected": [],
+    "pending": [
+      {
+        "requirement_id": "RAW-004",
+        "reason": "未提供解决记录 —— 待核实需求不进知识库"
+      },
+      {
+        "requirement_id": "RAW-005",
+        "reason": "未提供解决记录 —— 待核实需求不进知识库"
+      },
+      {
+        "requirement_id": "RAW-007",
+        "reason": "未提供解决记录 —— 待核实需求不进知识库"
+      },
+      {
+        "requirement_id": "RAW-010",
+        "reason": "未提供解决记录 —— 待核实需求不进知识库"
+      },
+      {
+        "requirement_id": "RAW-011",
+        "reason": "未提供解决记录 —— 待核实需求不进知识库"
+      },
+      {
+        "requirement_id": "RAW-012",
+        "reason": "未提供解决记录 —— 待核实需求不进知识库"
+      },
+      {
+        "requirement_id": "RAW-014",
+        "reason": "未提供解决记录 —— 待核实需求不进知识库"
+      },
+      {
+        "requirement_id": "RAW-015",
+        "reason": "未提供解决记录 —— 待核实需求不进知识库"
+      }
+    ],
+    "index": {
+      "index": {
+        "chip_model": {
+          "TX8": [
+            "RAW-001"
+          ],
+          "REX1032": [
+            "RAW-003"
+          ],
+          "TX81": [
+            "RAW-008"
+          ]
+        },
+        "model_name": {
+          "Qwen2.5-14B": [
+            "RAW-001"
+          ],
+          "YOLOv8n-detect": [
+            "RAW-003"
+          ]
+        },
+        "framework": {
+          "PyTorch 2.1": [
+            "RAW-003"
+          ]
+        },
+        "issue": {
+          "oom": [
+            "RAW-001"
+          ],
+          "doc_gap": [
+            "RAW-001",
+            "RAW-008"
+          ],
+          "capability_question": [
+            "RAW-001"
+          ],
+          "operator_fallback": [
+            "RAW-003"
+          ]
+        }
+      },
+      "entry_count": 3,
+      "rejected_count": 0,
+      "dimensions": [
+        "chip_model",
+        "model_name",
+        "framework",
+        "issue"
+      ],
+      "assumption_refs": [
+        "A-03",
+        "A-04"
+      ]
+    }
+  },
+  "scripts": [
+    {
+      "requirement_id": "RAW-001",
+      "filename": "verify_RAW-001.py",
+      "verdict": "needs_verification",
+      "runnable_on_cpu": true,
+      "threshold_calibrated": false,
+      "calibration_note": "THRESHOLD 为 None —— 须按客户实际模型标定。本项目无客户模型，不给估计值。",
+      "assumption_refs": [
+        "B-01",
+        "B-03"
+      ]
+    },
+    {
+      "requirement_id": "RAW-003",
+      "filename": "verify_RAW-003.py",
+      "verdict": "needs_verification",
+      "runnable_on_cpu": true,
+      "threshold_calibrated": false,
+      "calibration_note": "THRESHOLD 为 None —— 须按客户实际模型标定。本项目无客户模型，不给估计值。",
+      "assumption_refs": [
+        "B-01",
+        "B-03"
+      ]
+    },
+    {
+      "requirement_id": "RAW-012",
+      "filename": "verify_RAW-012.py",
+      "verdict": "needs_verification",
+      "runnable_on_cpu": true,
+      "threshold_calibrated": false,
+      "calibration_note": "THRESHOLD 为 None —— 须按客户实际模型标定。本项目无客户模型，不给估计值。",
+      "assumption_refs": [
+        "B-01",
+        "B-03"
+      ]
+    },
+    {
+      "requirement_id": "RAW-015",
+      "filename": "verify_RAW-015.py",
+      "verdict": "needs_verification",
+      "runnable_on_cpu": true,
+      "threshold_calibrated": false,
+      "calibration_note": "THRESHOLD 为 None —— 须按客户实际模型标定。本项目无客户模型，不给估计值。",
+      "assumption_refs": [
+        "B-01",
+        "B-03"
+      ]
+    },
+    {
+      "requirement_id": "RAW-005",
+      "filename": "verify_RAW-005.py",
+      "verdict": "not_recommended",
+      "runnable_on_cpu": true,
+      "threshold_calibrated": false,
+      "calibration_note": "THRESHOLD 为 None —— 须按客户实际模型标定。本项目无客户模型，不给估计值。",
+      "assumption_refs": [
+        "B-01",
+        "B-03"
+      ]
+    },
+    {
+      "requirement_id": "RAW-011",
+      "filename": "verify_RAW-011.py",
+      "verdict": "not_recommended",
+      "runnable_on_cpu": true,
+      "threshold_calibrated": false,
+      "calibration_note": "THRESHOLD 为 None —— 须按客户实际模型标定。本项目无客户模型，不给估计值。",
+      "assumption_refs": [
+        "B-01",
+        "B-03"
+      ]
+    },
+    {
+      "requirement_id": "RAW-014",
+      "filename": "verify_RAW-014.py",
+      "verdict": "not_recommended",
+      "runnable_on_cpu": true,
+      "threshold_calibrated": false,
+      "calibration_note": "THRESHOLD 为 None —— 须按客户实际模型标定。本项目无客户模型，不给估计值。",
+      "assumption_refs": [
+        "B-01",
+        "B-03"
+      ]
+    }
+  ],
+  "scripts_skipped": [
+    {
+      "requirement_id": "RAW-004",
+      "reason": "判定为待人工核实，字段不全时不生成脚本 —— 生成一个测不了的东西比不生成更糟"
+    },
+    {
+      "requirement_id": "RAW-007",
+      "reason": "判定为待人工核实，字段不全时不生成脚本 —— 生成一个测不了的东西比不生成更糟"
+    },
+    {
+      "requirement_id": "RAW-008",
+      "reason": "判定为待人工核实，字段不全时不生成脚本 —— 生成一个测不了的东西比不生成更糟"
+    },
+    {
+      "requirement_id": "RAW-010",
+      "reason": "判定为待人工核实，字段不全时不生成脚本 —— 生成一个测不了的东西比不生成更糟"
+    }
+  ]
+}

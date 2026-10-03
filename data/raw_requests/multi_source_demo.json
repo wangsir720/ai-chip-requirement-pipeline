@@ -1,0 +1,124 @@
+{
+  "requests": [
+    {
+      "id": "RAW-001",
+      "source": "email",
+      "received_at": "2026-08-04",
+      "text": "客户反馈我们在 TX8 上跑 Qwen2.5-14B 推理的时候显存直接爆了，麻烦看看是什么问题，他们那边说换了batch size 就好了但是他们的 batch size 现在开到 64 就 OOM，之前 32 是能跑的，是不是新版本有问题？他们还问这个卡能不能支持到 70B 的模型。另外客户抱怨说安装步骤太复杂了，文档看不明白。",
+      "reporter": "华东区 FAE",
+      "customer_industry": "政务"
+    },
+    {
+      "id": "RAW-002",
+      "source": "jira",
+      "received_at": "2026-08-05",
+      "text": "TX8 + vLLM 部署 Qwen2.5-14B，batch=32 正常，batch=64 CUDA out of memory。复现步骤见附件。期望：给出 batch 上限与显存占用对应关系。",
+      "reporter": "张工（解决方案）",
+      "customer_industry": "金融"
+    },
+    {
+      "id": "RAW-003",
+      "source": "meeting_note",
+      "received_at": "2026-08-05",
+      "text": "会议纪要 8/5：某省政务云反馈 REX1032 上跑他们的视频分析模型 YOLOv8n-detect，frameworks 换成 pytorch 2.1 之后算子 fallback 到 CPU",
+      "reporter": "产品部",
+      "customer_industry": "政务"
+    },
+    {
+      "id": "RAW-004",
+      "source": "ticket",
+      "received_at": "2026-08-06",
+      "text": "客户问 REX81 超节点什么时候能交付，他们项目排期是 Q4。另外问超节点能不能横向扩展到 64 卡跑 Qwen2.5-32B。我们现在只有 TX81 模组的数据。",
+      "reporter": "销售支持",
+      "customer_industry": "能源"
+    },
+    {
+      "id": "RAW-005",
+      "source": "email",
+      "received_at": "2026-08-06",
+      "text": "又有一个客户说 TX8 跑 DeepSeek-V3 推理显存不够。。。客户是做大模型应用的，他们想跑 671B 那个版本。客户不太懂，问我们能不能通过加卡解决，加到几张卡能跑。另外他们还问支不支持 LoRA 微调。",
+      "reporter": "销售",
+      "customer_industry": "互联网"
+    },
+    {
+      "id": "RAW-006",
+      "source": "jira",
+      "received_at": "2026-08-07",
+      "text": "TX8 上 Qwen2.5-14B batch=32 正常 batch=64 OOM",
+      "reporter": "李工",
+      "customer_industry": "金融"
+    },
+    {
+      "id": "RAW-007",
+      "source": "meeting_note",
+      "received_at": "2026-08-07",
+      "text": "周会：政务云那边 REX1032 pytorch 升到 2.1 以后算子 fallback，吞吐掉 90%，1.13 正常。给个算子支持清单。",
+      "reporter": "研发协作",
+      "customer_industry": "政务"
+    },
+    {
+      "id": "RAW-008",
+      "source": "ticket",
+      "received_at": "2026-08-08",
+      "text": "客户抱怨安装文档看不懂，TX81 模组的驱动安装步骤和 TX5 不一样但是文档只有一份。他们希望按型号分开写。这个算文档缺失类需求吧。",
+      "reporter": "FAE",
+      "customer_industry": "医疗"
+    },
+    {
+      "id": "RAW-009",
+      "source": "email",
+      "received_at": "2026-08-09",
+      "text": "客户测试 REX1032 跑视频结构化模型 YOLOv8n-detect，pytorch2.1 下 GPU 利用率只有 8%，吞吐相比 1.13 版本下降约 90%。怀疑算子未适配走 CPU。客户行业是政务。",
+      "reporter": "解决方案团队",
+      "customer_industry": "政务"
+    },
+    {
+      "id": "RAW-010",
+      "source": "ticket",
+      "received_at": "2026-08-10",
+      "text": "咨询：REX81 超节点交付时间与横向扩展能力，以及超节点互联带宽指标。需要产品线给出正式口径。",
+      "reporter": "销售支持",
+      "customer_industry": "能源"
+    },
+    {
+      "id": "RAW-011",
+      "source": "meeting_note",
+      "received_at": "2026-08-11",
+      "text": "讨论：客户拿 TX8 跑 DeepSeek-V3 问要几张卡。32G 显存，需要多卡切分，加到 4 张够不够？销售不清楚切分粒度，研发说需要看模型结构和互联方案。",
+      "reporter": "产品部",
+      "customer_industry": "互联网"
+    },
+    {
+      "id": "RAW-012",
+      "source": "email",
+      "received_at": "2026-08-12",
+      "text": "客户问 TX8 模组上支不支持 LoRA 微调 Qwen2.5-14B，客户想做行业语料微调。",
+      "reporter": "销售",
+      "customer_industry": "金融"
+    },
+    {
+      "id": "RAW-013",
+      "source": "jira",
+      "received_at": "2026-08-12",
+      "text": "TX81 模组驱动安装文档缺失，文档中安装步骤与 TX5 混写，TX5 与 TX8 芯片架构不同导致步骤不适用。按型号拆分文档。",
+      "reporter": "FAE 团队",
+      "customer_industry": "医疗"
+    },
+    {
+      "id": "RAW-014",
+      "source": "ticket",
+      "received_at": "2026-08-13",
+      "text": "客户问 REX1032 千卡集群跑 Qwen2.5-32B 的互联方式和单卡间带宽，以及是否支持线性扩展。",
+      "reporter": "售前",
+      "customer_industry": "政务"
+    },
+    {
+      "id": "RAW-015",
+      "source": "email",
+      "received_at": "2026-08-14",
+      "text": "有个客户在 TX8 上用 pytorch 2.1 跑 Qwen2.5-7B 说算子不支持，问是不是版本问题。他们说自己 1.13 正常。我们需要一份算子支持矩阵。",
+      "reporter": "FAE",
+      "customer_industry": "能源"
+    }
+  ]
+}

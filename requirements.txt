@@ -1,0 +1,14 @@
+# 运行时依赖：无第三方依赖。
+#
+# 本项目只用 Python 标准库（csv / json / os / re / unicodedata / argparse / subprocess）。
+# 选零依赖是有意的设计取舍：需求治理工具要天天用，
+# 「装不上 / 版本冲突 / 三个月后跑不起来」是最大的敌人。
+#
+# 唯一需要的开发期工具是 pytest（跑测试）：
+#     pip install pytest
+#
+# 特别说明：本项目不调用任何付费 API，也不需要 GPU。
+# 生成的测试脚本默认 CPU 模拟模式，可在无算力卡环境复现全流程。
+#
+# 验证过的运行环境：
+#     Python 3.12.8 / Windows

@@ -1,0 +1,5 @@
+﻿framework,version,operator_fallback_to_cpu_known,cuqa_compatible,migration_path,migration_cost,source_id,credibility,fetched_at,note
+PyTorch,1.13,False,True,CUDA 兼容,低,S2,secondary,2026-10-03,公开资料：软件栈兼容 CUDA
+PyTorch,2.1,True,True,CUDA 兼容,需算子适配,S2,unverified,2026-10-03,fallback 行为来自自拟样本，非官方口径
+vLLM,0.6,False,True,CUDA 兼容,需验证,S2,unverified,2026-10-03,版本号取自公开镜像标签
+FlagGems,latest,False,True,FlagOS 原生,无需迁移,S3,official,2026-10-03,FlagOS 生态官方算子库

@@ -1,0 +1,6 @@
+﻿chip_model,product_line,architecture,vram_gib,interconnect,multi_card_supported,source_id,credibility,fetched_at,note
+TX5,边缘智能,可重构架构,-,-,False,S1,secondary,2026-10-03,边缘智能系列，公开规格未查到显存参数
+TX8,云端,可重构数据流架构,32,芯片及系统间直接互联无需交换机,True,S1,secondary,2026-10-03,云端算力卡
+TX81,模组,可重构 2.0,32,-,True,S1,secondary,2026-10-03,计算模组
+REX1032,服务器,可重构,32,千卡互联,True,S1,secondary,2026-10-03,高性能智算服务器
+REX81,超节点,超节点,-,-,True,S1,secondary,2026-10-03,超节点，公开规格未查到详细参数

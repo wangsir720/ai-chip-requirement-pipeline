@@ -1,0 +1,7 @@
+﻿model_id,params_b,min_vram_gib,quantization_supported,lora_supported,source_id,credibility,fetched_at,note
+Qwen2.5-14B,14,24,INT8,True,P1,secondary,2026-10-03,主流开源大模型
+Qwen2.5-32B,32,48,INT8,True,P1,secondary,2026-10-03,主流开源大模型
+Qwen2.5-7B,7,16,INT8,True,P1,secondary,2026-10-03,主流开源大模型
+DeepSeek-V3,671,1400,FP8,False,P1,secondary,2026-10-03,MoE 架构，激活参数远小于总量
+DeepSeek-R1-Distill-Qwen-14B,14,24,INT8,True,P1,secondary,2026-10-03,蒸馏模型
+YOLOv8n-detect,0,4,INT8,False,P2,secondary,2026-10-03,视觉检测小模型

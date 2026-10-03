@@ -1,0 +1,152 @@
+{
+  "entries": [
+    {
+      "phenomenon": "客户反馈我们在 TX8 上跑 Qwen2.5-14B 推理的时候显存直接爆了,是什么问题,说换了batch size 就好了但是他们的 batch size 现在开到 64 就 OOM,之前 32 是能跑的,是不是新版本有问题?他们还问[指代]这个卡能不能支持到 70B 的模型.另外客户抱怨说安装步骤太复杂了,文档看不明白.",
+      "cause": "batch=64 时 KV Cache 与激活值叠加超出单卡 32 GiB 显存，根因定位方式：对比 batch=32/64 的显存占用曲线",
+      "solution": "将推理批量降至 32；或启用 PagedAttention 类分页机制降低碎片；若客户确需 64 批量，按 2 卡张量并行处理",
+      "verification": "跑 output/scripts/verify_RAW-001.py，断言 batch=64 时不出现 OOM 且吞吐不低于 batch=32 的 90%",
+      "linked_requirement": "RAW-001",
+      "chip_model": "TX8",
+      "model_name": "Qwen2.5-14B",
+      "framework": "未提取到",
+      "issue_labels": [
+        "oom",
+        "doc_gap",
+        "capability_question"
+      ],
+      "rejected": "",
+      "partial": [],
+      "completeness": 1.0
+    },
+    {
+      "phenomenon": "会议纪要 8/5:某省政务云反馈 REX1032 上跑他们的视频分析模型 YOLOv8n-detect,frameworks 换成 pytorch 2.1 之后算子 fallback 到 CPU",
+      "cause": "根因未定位。已排除：显存（非 OOM）、芯片型号（其他模型正常）。待研发确认是否为目标算子在 PyTorch 2.1 后端缺失",
+      "solution": "临时回退至 PyTorch 1.13 验证业务；同时向研发提交算子支持矩阵需求，等待确认",
+      "verification": "对比 1.13 与 2.1 下同一模型的 GPU 利用率与吞吐；回退方案下利用率应恢复至 60% 以上",
+      "linked_requirement": "RAW-003",
+      "chip_model": "REX1032",
+      "model_name": "YOLOv8n-detect",
+      "framework": "PyTorch 2.1",
+      "issue_labels": [
+        "operator_fallback"
+      ],
+      "rejected": "",
+      "partial": [],
+      "completeness": 1.0
+    },
+    {
+      "phenomenon": "客户抱怨安装文档看不懂,TX81 模组的驱动安装步骤和 TX5 不一样但是文档只有一份.他们希望按型号分开写.这个算文档缺失类需求.",
+      "cause": "文档按产品线组织而非按芯片型号组织，TX81 模组与 TX5 芯片的驱动安装步骤不同但共用一份文档，导致客户按 TX5 步骤操作 TX81 失败",
+      "solution": "按芯片型号拆分安装文档；文档首页增加型号对照表",
+      "verification": "由未参与编写的同事按新文档在干净环境完成一次安装，全程无需外部协助即视为通过",
+      "linked_requirement": "RAW-008",
+      "chip_model": "TX81",
+      "model_name": "未提取到",
+      "framework": "未提取到",
+      "issue_labels": [
+        "doc_gap"
+      ],
+      "rejected": "",
+      "partial": [],
+      "completeness": 1.0
+    }
+  ],
+  "rejected": [],
+  "pending": [
+    {
+      "requirement_id": "RAW-004",
+      "reason": "未提供解决记录 —— 待核实需求不进知识库"
+    },
+    {
+      "requirement_id": "RAW-005",
+      "reason": "未提供解决记录 —— 待核实需求不进知识库"
+    },
+    {
+      "requirement_id": "RAW-007",
+      "reason": "未提供解决记录 —— 待核实需求不进知识库"
+    },
+    {
+      "requirement_id": "RAW-010",
+      "reason": "未提供解决记录 —— 待核实需求不进知识库"
+    },
+    {
+      "requirement_id": "RAW-011",
+      "reason": "未提供解决记录 —— 待核实需求不进知识库"
+    },
+    {
+      "requirement_id": "RAW-012",
+      "reason": "未提供解决记录 —— 待核实需求不进知识库"
+    },
+    {
+      "requirement_id": "RAW-014",
+      "reason": "未提供解决记录 —— 待核实需求不进知识库"
+    },
+    {
+      "requirement_id": "RAW-015",
+      "reason": "未提供解决记录 —— 待核实需求不进知识库"
+    }
+  ],
+  "index": {
+    "index": {
+      "chip_model": {
+        "TX8": [
+          "RAW-001"
+        ],
+        "REX1032": [
+          "RAW-003"
+        ],
+        "TX81": [
+          "RAW-008"
+        ]
+      },
+      "model_name": {
+        "Qwen2.5-14B": [
+          "RAW-001"
+        ],
+        "YOLOv8n-detect": [
+          "RAW-003"
+        ]
+      },
+      "framework": {
+        "PyTorch 2.1": [
+          "RAW-003"
+        ]
+      },
+      "issue": {
+        "oom": [
+          "RAW-001"
+        ],
+        "doc_gap": [
+          "RAW-001",
+          "RAW-008"
+        ],
+        "capability_question": [
+          "RAW-001"
+        ],
+        "operator_fallback": [
+          "RAW-003"
+        ]
+      }
+    },
+    "entry_count": 3,
+    "rejected_count": 0,
+    "dimensions": [
+      "chip_model",
+      "model_name",
+      "framework",
+      "issue"
+    ],
+    "assumption_refs": [
+      "A-03",
+      "A-04"
+    ]
+  },
+  "field_guide": {
+    "phenomenon": "客户看到的表象，须包含可观察量（报错、吞吐、显存占用）",
+    "cause": "根因分析。**未定位到根因时写「根因未定位」并说明已排查到哪一步**，不编",
+    "solution": "具体操作步骤或配置变更，不写「重启试试」这类无信息量内容",
+    "verification": "如何确认问题已解决：跑哪个脚本、看哪个指标、阈值是多少",
+    "linked_requirement": "关联的需求单号，用于回溯需求来源"
+  },
+  "discipline_note": "闭环五要素缺任一项即拒收入库。知识库的价值在于「下次遇到能直接用」，而不是「记录过多少问题」。"
+}
