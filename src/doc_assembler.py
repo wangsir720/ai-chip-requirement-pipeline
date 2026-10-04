@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 """文档装配：需求单 / 分析报告 / SOP / 看板 / 知识库。
 
-对应 JD 职责 1「结构化需求单」、职责 2「状态跟踪与风险同步」、
-职责 3「需求管理 SOP」三类交付物。
+装配结构化需求单、状态跟踪与风险同步、需求管理 SOP 三类交付物。
 """
 from __future__ import annotations
 
@@ -10,7 +9,7 @@ import csv
 import json
 import os
 
-# 状态流转（对应职责 2 的 Backlog → Done）
+# 状态流转（Backlog → Done）
 STATUS_FLOW = ["Backlog", "待澄清", "已拆解", "In Progress", "待验证", "Done"]
 
 
@@ -101,7 +100,7 @@ FIELD_CN = {
 
 
 def render_analysis_report(pipeline: dict, matrix: dict, kb: dict) -> str:
-    """需求分析与拆解报告（对应职责 1 的「分析与拆解」）。"""
+    """需求分析与拆解报告。"""
     L = ["# 需求分析与拆解报告", ""]
     L.append("> 由 `src/doc_assembler.py` 自动装配。**需求样本为自拟，非真实业务数据。**")
     L.append("")
@@ -168,7 +167,7 @@ def render_analysis_report(pipeline: dict, matrix: dict, kb: dict) -> str:
 
 
 def render_board(pipeline: dict, matrix: dict) -> str:
-    """需求流转状态看板（对应职责 2）。"""
+    """需求流转状态看板。"""
     L = ["# 需求流转状态看板", ""]
     L.append("> 状态流转：%s" % " → ".join(STATUS_FLOW))
     L.append("")
@@ -215,7 +214,7 @@ def render_board(pipeline: dict, matrix: dict) -> str:
 
 
 def render_sop(pipeline: dict) -> str:
-    """需求管理 SOP（对应职责 3）。
+    """需求管理 SOP。
 
     每条规则都标注它在代码里的实际实现位置 —— 写了没实现的 SOP 是废话。
     """

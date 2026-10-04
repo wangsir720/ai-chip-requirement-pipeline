@@ -22,13 +22,13 @@ AI 算力产品的需求池长这样：邮件、工单、会议纪要混在一�
 
 这个工具做的事是：**把「杂、乱、散」的原始需求，变成字段完整、判定有据、可执行、可追溯的需求单**。
 
-它对应 JD 三条职责：
+它解决的三个环节：
 
-| JD 职责 | 本项目落点 |
+| 解决的环节 | 本项目落点 |
 |---|---|
-| 职责 1 · 全生命周期管理，录入/审核/清洗/分析/拆解 | `cleaner.py` + `extractor.py` + 分析报告 |
-| 职责 2 · 跨部门协同，跟踪流转状态，同步进度与风险 | `doc_assembler.py::render_board` 状态看板 + 风险同步 |
-| 职责 3 · 流程标准化，SOP + 工具集 + 问题闭环知识库 | `doc_assembler.py::render_sop` + `kb_builder.py` + `script_gen.py` |
+| 全生命周期管理：录入 / 审核 / 清洗 / 分析 / 拆解 | `cleaner.py` + `extractor.py` + 分析报告 |
+| 跨部门协同：跟踪流转状态，同步进度与风险 | `doc_assembler.py::render_board` 状态看板 + 风险同步 |
+| 流程标准化：SOP + 工具集 + 问题闭环知识库 | `doc_assembler.py::render_sop` + `kb_builder.py` + `script_gen.py` |
 
 ## 2. 核心设计决策
 
